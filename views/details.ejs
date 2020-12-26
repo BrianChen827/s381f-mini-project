@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<title><%=restaurant.name %></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<body>
+
+<script>
+function loadMap () {
+  var myLatLng = {lat: <%=restaurant.address.coord[1]%>, lng: <%=restaurant.address.coord[0]%>};
+  //var myLatLng = new google.maps.LatLng({lat: 35.691780, lng: 139.699367});
+  var map = new google.maps.Map(document.getElementById("map"),{
+        zoom: 18,
+        center: myLatLng
+  });
+  var marker = new google.maps.Marker({
+     position: myLatLng,
+     map: map,
+     title: <%=restaurant.name %>
+  });
+}
+</script>
+
+<header class="w3-container w3-light-blue w3-text-white">
+	<h1><%=restaurant.name %></h1>
+</header>
+
+<% if (restaurant.photo) { %>
+<img src="data:image/jpg;base64, <%= restaurant.photo %>" class="w3-image w3-border w3-padding" style="width:100%">
+<% } %>
+
+<div class="w3-container w3-half w3-margin-top">
+<p><label class="w3-label w3-text-blue-gray">Borough: </label><%=restaurant.borough%></p>
+<p><label class="w3-label w3-text-blue-gray">Cuisine: </label><%=restaurant.cuisine%></p>
+<p><label class="w3-label w3-text-blue-gray">Street: </label><%=restaurant.address.street%></p>
+<p><label class="w3-label w3-text-blue-gray">Building: </label><%=restaurant.address.building%></p>
+<p><label class="w3-label w3-text-blue-gray">Zipcode: </label><%=restaurant.address.zipcode%></p>
+<p>
+	<label class="w3-label w3-text-blue-gray">GPS: </label>
+	<% if (restaurant.address.coord[0] && restaurant.address.coord[1]) { %>	
+		[<%=restaurant.address.coord[0]%>, <%=restaurant.address.coord[1]%>]
+		(Find in <a href="/gmap?lon=<%=restaurant.address.coord[0]%>&lat=<%=restaurant.address.coord[1]%>&zoom=18" style="color: blue" target="_blank">Map</a>)
+	<% } else { %>
+		No location yet.
+	<% } %>
+</p>
+
+<p><label class="w3-label w3-text-blue-gray">Rating: </label>
+<% var rated = 0 %>
+<% if(restaurant.grades.length!=0) { %>
+<ol>
+	<% for (var g of restaurant.grades) { %>
+	<li><%=g.score%> rate by <%=g.user%></li>
+		<% if (login_user == g.user) { 
+			rated = 1;
+		} %>
+	<% } %>
+</ol>
+<% } else { %>
+	No rate yet.
+<% } %>
+</p>
+
+<p><label class="w3-label w3-text-blue-gray">Created by: </label><%=restaurant.owner%></p>
+
+<% if(rated == 0) { %>
+<a href="/rate?_id=<%= restaurant._id %>&name=<%=restaurant.name %>" style="text-decoration: none">
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white">Rate</button>
+</a>
+<% } else { %>
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white" onClick="fun(1)">Rate</button>
+<% } %>
+
+
+<% if(login_user == restaurant.owner) { %>
+<a href="/change?_id=<%= restaurant._id %>" style="text-decoration: none">
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white">Edit</button>
+</a>
+<% } else { %>
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white" onClick="fun(2)">Edit</button>
+<% } %>
+
+
+<% if(login_user == restaurant.owner) { %>
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white" onClick="delete_confirm()">Delete</button>
+<% } else { %>
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white"  onClick="fun(2)">Delete</button>
+<% } %>
+
+<a href="/read" style="text-decoration: none">
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white">Back</button>
+</a>
+
+<script>
+function fun(a) {
+	if(a==1) {
+		alert('You have done the rating before.');
+	} else if(a==2) {
+		alert('You are not authorized to edit!');
+	}
+}
+
+function delete_confirm() {
+	var flag = confirm("Are you sure to delete this restaurant?");
+    if (flag == true) {
+        window.location='/remove?_id=<%= restaurant._id %>';
+    } else {
+		return;
+	}
+}
+</script>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<title>Modify</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<body>
+
+<script>
+function goBack() {
+	window.history.back();
+}
+</script>
+
+<header class="w3-container w3-light-blue w3-text-white">
+	<h1>Modify Restaurant <%=restaurant.name %></h1>
+</header>
+
+<div class="w3-container w3-half w3-margin-top">
+
+<form action="/update" method="post" enctype="multipart/form-data" class="w3-container">
+  <p>
+  <input name="rname" class="w3-input" type="text" required value="<%=restaurant.name %>">
+  <label class="w3-label w3-validate">Restaurant Name</label>
+  </p>
+
+  <p>
+  <input name="borough" class="w3-input" type="text" value="<%=restaurant.borough %>">
+  <label class="w3-label w3-validate">Borough</label>
+  </p>
+
+  <p>
+  <input name="cuisine" class="w3-input" type="text" value="<%=restaurant.cuisine %>">
+  <label class="w3-label w3-validate">Cuisine</label>
+  </p>
+
+  <p>
+  <input name="street" class="w3-input" type="text" value="<%=restaurant.address.street %>">
+  <label class="w3-label w3-validate">Street</label>
+  </p>
+
+  <p>
+  <input name="building" class="w3-input" type="text" value="<%=restaurant.address.building %>">
+  <label class="w3-label w3-validate">Building</label>
+  </p>
+
+  <p>
+  <input name="zipcode" class="w3-input" type="text" value="<%=restaurant.address.zipcode %>">
+  <label class="w3-label w3-validate">Zipcode</label>
+  </p>
+
+  <p>
+  <input name="coord_lon" class="w3-input" type="text" value="<%=restaurant.address.coord[0]%>">
+  <label class="w3-label w3-validate">GPS Coordinates (lon.)</label>
+  </p>
+
+  <p>
+  <input name="coord_lat" class="w3-input" type="text" value="<%=restaurant.address.coord[1]%>">
+  <label class="w3-label w3-validate">GPS Coordinates (lat.)</label>
+  </p>
+
+  <p>
+  <input name="photo" class="w3-input" type="file">
+  <label class="w3-label w3-validate">Photo</label>
+  </p>
+
+  <input name="_id" type="hidden" value="<%= restaurant._id %>">
+
+  <p>
+  <button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white"> Save </button>
+  <button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white" onclick="goBack()">Go Back</button>
+  </p>
+</form>
+</div>
+
+</body>
+</html>

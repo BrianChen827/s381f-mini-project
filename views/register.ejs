@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<title>Sign up</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<body>
+
+<script>
+function confirmPwd() {
+	var pwd = document.forms["register"]["pwd"].value;
+	var cfm_pwd = document.forms["register"]["cfm_pwd"].value;
+	if(cfm_pwd != pwd) {
+		alert("Two different input password, please re-entry.");
+		return false;
+	}
+}
+
+function goBack() {
+	window.history.back();
+}
+</script>
+
+<header class="w3-container w3-light-blue w3-text-white">
+	<h1>Sign up</h1>
+</header>
+
+<div class="w3-container w3-half w3-margin-top">
+
+<form action="/signup" method="post" enctype="multipart/form-data" class="w3-container" name="register" onSubmit="return confirmPwd()">
+  <p>
+  <input name="username" class="w3-input" type="text" style="width:90%" required>
+  <label class="w3-label w3-validate">User Name</label>
+  </p>
+
+  <p>
+  <input name="pwd"class="w3-input" type="password" style="width:90%" required>
+  <label class="w3-label w3-validate">Password</label>
+  </p>
+
+  <p>
+  <input name="cfm_pwd"class="w3-input" type="password" style="width:90%" required>
+  <label class="w3-label w3-validate">Comfirm Password</label>
+  </p>
+
+  <p>
+  <button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white" type="submit"> OK, and log in </button>
+  <a class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white" onclick="goBack()">Go Back</a>
+  </p>
+
+</form>
+</div>
+
+</body>
+</html>

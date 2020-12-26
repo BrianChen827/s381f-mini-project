@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<title>Restaurant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+<style type="text/css">
+#showName tbody {
+      position: absolute;
+      overflow-y: scroll;
+      height: 350px;
+  }
+
+#showName tr {
+      width: 100%;
+      table-layout: fixed;
+      display: inline-table;
+  }
+
+#showName th {
+      border: none;
+  }
+</style>
+
+
+
+<body>
+
+<div class="w3-container w3-light-blue w3-text-white">
+	<h1>Restaurant</h1>
+	<h5 class="w3-left">Hello, <%=name%>!</h5>
+	<a href='/logout' class="w3-right w3-btn w3-white">
+		<span class="w3-text-light-blue">Log out</span>
+	</a>
+</div>
+
+<div class="w3-container w3-half w3-margin-top">
+
+<div class="w3-margin-top w3-margin-bottom" style="width:100%">
+<%- include('search', {names: names, boroughs: boroughs, cuisines: cuisines, criterias: criterias}); %>
+</div>
+
+
+<h5>Show <%= nRestaurant%> restaurant</h5>
+
+<% if (criterias.name) {%>
+	<p>(name: <span class="w3-text-blue-gray"><%=criterias.name%></span>)</p>
+<% } else { %>
+	<% if (criterias.borough && !criterias.cuisine) { %>
+		<p>(borough: <span class="w3-text-blue-gray"><%=criterias.borough%></span>)</p>
+	<% } %>
+	<% if (criterias.borough && criterias.cuisine) { %>
+		<p>(borough: <span class="w3-text-blue-gray"><%=criterias.borough%></span>, cuisine: <span class="w3-text-blue-gray"><%=criterias.cuisine%></span>)</p>
+	<% } %>
+<% } %>
+
+
+<table class="w3-table w3-striped w3-hoverable" id="showName">
+
+<thead>
+	<tr><th>Restaurant Name</th></tr>
+</thead>
+
+<tbody>
+	<% for (var r of restaurant) { %>
+	<tr><td><a href="/details?_id=<%= r._id %>" style="text-decoration: none; color: blue"><%= r.name %></a></td></tr>
+	<% } %>
+</tbody>
+
+</table>
+
+<a href="/new" class="w3-padding w3-display-bottomleft">
+<button class="w3-btn w3-section w3-light-blue w3-ripple w3-text-white">Create New Restaurant</button>
+</a>
+
+</div>
+
+
+</body>
+</html>
+

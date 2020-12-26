@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<body>
+
+<style>
+td {
+  text-align: left;
+  padding-right: 10px;
+}
+</style>
+
+<form action="/read" method="get">
+<table cellpadding="2" cellspacing="2" style="table-layout:fixed;border-collapse: collapse;">
+<tr>
+	<td>Name: </td>
+	<td>
+	<select name="name">
+		<option value="default">---</option>
+		<% for(i in names) { %>
+		<option value="<%=names[i]%>"><%=names[i]%></option>
+		<% } %>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td>Borough: </td>
+	<td>
+	<select name="borough" onClick="fun()">
+		<option value="default">---</option>
+		<% for(i in boroughs) { %>
+		<option value="<%=boroughs[i]%>"><%=boroughs[i]%></option>
+		<% } %>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td>Cuisine: </td>
+	<td>
+	<select name="cuisine">
+		<option value="default">---</option>
+		<% for(i in cuisines) { %>
+		<option value="<%=cuisines[i]%>"><%=cuisines[i]%></option>
+		<% } %>
+	</select>
+	</td>
+</tr>
+
+<tr>
+	<td><input type="submit" value="Search"></td>
+</tr>
+
+</table>
+</form>
+
+
+
+</body>
+</html>
