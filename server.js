@@ -11,7 +11,7 @@ const formidable = require('express-formidable');
 app.use(formidable());
 app.set('view engine','ejs');
 
-const mongourl = 'mongodb+srv://brian:brian@cluster0.saqg7.mongodb.net/project?retryWrites=true&w=majority';
+const mongourl = '';
 const dbName = 'project';
 
 const SECRETKEY = 'I want to pass COMPS381F';
